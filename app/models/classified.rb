@@ -1,0 +1,2 @@
+class Classified < ApplicationRecord
+end
