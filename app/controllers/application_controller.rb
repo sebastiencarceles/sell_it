@@ -1,5 +1,3 @@
 class ApplicationController < ActionController::API
-  def ping
-    render json: { response: 'pong' }
-  end
+  include Knock::Authenticable
 end

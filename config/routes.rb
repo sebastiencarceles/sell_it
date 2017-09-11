@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get 'ping' => 'application#ping'
+  post 'user_token' => 'user_token#create'
+  get 'ping' => 'table_tennis#ping'
 
   resources :classifieds, only: [:show, :index]
 end
