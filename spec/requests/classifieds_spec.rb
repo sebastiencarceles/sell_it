@@ -68,6 +68,11 @@ RSpec.describe 'Classifieds API', type: :request do
         post '/classifieds', params: {title: 'title', price: 'trululu', description: 'description'}, headers: authentication_header
         expect(response).to have_http_status :bad_request
       end
+
+      it 'returns a bad request when there is an extra parameter' do
+        post '/classifieds', params: {title: 'title', price: 'trululu', description: 'description', onemore: 'param'}, headers: authentication_header
+        expect(response).to have_http_status :bad_request
+      end
     end
   end
 end
