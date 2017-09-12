@@ -22,6 +22,6 @@ class ClassifiedsController < ApplicationController
   private
 
   def classified_params
-    params.permit(:title, :price, :description)
+    params.require(:classified).permit(:title, :price, :description)
   end
 end
