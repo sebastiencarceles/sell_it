@@ -43,7 +43,7 @@ RSpec.describe 'Classifieds API', type: :request do
     context 'when authenticated' do
       it 'works' do
         post '/classifieds', params: {title: 'title', price: 62, description: 'description'}, headers: authentication_header
-        expect(response).to be_success
+        expect(response).to have_http_status :created
       end
 
       it 'creates a new classified' do
@@ -52,7 +52,10 @@ RSpec.describe 'Classifieds API', type: :request do
         }.to change {
           current_user.classifieds.count
         }.by 1
+      end
 
+      it 'has correct fields values for the created classified' do
+        post '/classifieds', params: {title: 'title', price: 62, description: 'description'}, headers: authentication_header
         created_classified = current_user.classifieds.last
         expect(created_classified.title).to eq 'title'
         expect(created_classified.price).to eq 62

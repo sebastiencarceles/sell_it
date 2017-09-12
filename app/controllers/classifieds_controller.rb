@@ -13,7 +13,7 @@ class ClassifiedsController < ApplicationController
   def create
     classified = current_user.classifieds.create(classified_params)
     if classified.save
-      render json: classified
+      render json: classified, status: :created
     else
       render json: classified.errors.details, status: :bad_request
     end
