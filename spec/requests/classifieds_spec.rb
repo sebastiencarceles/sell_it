@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'pp'
 
 RSpec.describe 'Classifieds API', type: :request do
   let(:classified) { FactoryGirl.create :classified, user: current_user }
@@ -23,6 +24,7 @@ RSpec.describe 'Classifieds API', type: :request do
       it { expect(response).to be_success }
 
       it 'is correctly serialized' do
+        pp parsed_body
         expect(parsed_body['title']).to eq classified.title
         expect(parsed_body['price']).to eq classified.price
         expect(parsed_body['description']).to eq classified.description
