@@ -116,34 +116,9 @@ RSpec.describe 'Classifieds API', type: :request do
          { classified: { title: 'A better title', price: 42 } }
       }
 
-      context 'when everything goes well' do
-        before { patch "/v2/classifieds/#{classified.id}", params: params, headers: authentication_header }
+      before { patch "/v2/classifieds/#{classified.id}", params: params, headers: authentication_header }
 
-        it { expect(response).to be_success }
-
-        it 'modifies the given fields of the resource' do
-          modified_classified = Classified.find(classified.id)
-          expect(modified_classified.title).to eq 'A better title'
-          expect(modified_classified.price).to eq 42
-        end
-      end
-
-      it 'returns a not found when the resource can not be found' do
-        patch '/v2/classifieds/toto', params: params, headers: authentication_header
-        expect(response).to have_http_status :not_found
-      end
-
-      it 'returns a bad request when a parameter is malformed' do
-        params[:classified][:price] = 'trululu'
-        patch "/v2/classifieds/#{classified.id}", params: params, headers: authentication_header
-        expect(response).to have_http_status :bad_request
-      end
-
-      it 'returns a forbidden when the requester is not the owner of the resource' do
-        another_classified = FactoryGirl.create :classified
-        patch "/v2/classifieds/#{another_classified.id}", params: params, headers: authentication_header
-        expect(response).to have_http_status :forbidden
-      end
+      it { expect(response).to have_http_status :forbidden }
     end
   end
 
