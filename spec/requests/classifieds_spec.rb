@@ -1,18 +1,31 @@
 require 'rails_helper'
+require 'pp'
 
 RSpec.describe 'Classifieds API', type: :request do
   let(:classified) { FactoryGirl.create :classified, user: current_user }
 
   describe 'GET /classifieds' do
-    before {
-      FactoryGirl.create_list :classified, 3
-      get "/classifieds"
-    }
+    context 'when everything goes well' do
+      let(:page) { 3 }
+      let(:per_page) { 5 }
 
-    it { expect(response).to be_success }
+      before {
+        FactoryGirl.create_list :classified, 18
+        get "/classifieds", params: { page: page, per_page: per_page }
+      }
 
-    it 'returns all the entries' do
-      expect(parsed_body.count).to eq Classified.all.count
+      it { expect(response).to be_success }
+
+      it 'returns paginated results' do
+        expect(parsed_body.map { |classified| classified['id'] }).to eq Classified.all.limit(per_page).offset((page - 1) * per_page).pluck(:id)
+      end
+    end
+
+    it 'returns a bad request when parameters are missing' do
+      get '/classifieds'
+      expect(response).to have_http_status :bad_request
+      expect(parsed_body.keys).to include 'error'
+      expect(parsed_body['error']).to eq 'missing parameters'
     end
   end
 

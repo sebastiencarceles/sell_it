@@ -6,7 +6,8 @@ class ClassifiedsController < ApplicationController
   before_action :check_authorization, only: [:update, :destroy]
 
   def index
-    render json: Classified.all
+    render json: { error: 'missing parameters' }, status: :bad_request and return unless params[:page] && params[:per_page]
+    paginate json: Classified.all
   end
 
   def show
