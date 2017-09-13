@@ -1,4 +1,4 @@
-class V1::TableTennisController < V1::ApplicationController
+class TableTennisController < ApplicationController
   def ping
     if current_user
       render json: { response: 'authenticated pong' }

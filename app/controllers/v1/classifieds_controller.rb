@@ -1,5 +1,5 @@
 
-class V1::ClassifiedsController < V1::ApplicationController
+class V1::ClassifiedsController < ApplicationController
 
   before_action :authenticate_user, only: [:create, :update, :destroy]
   before_action :find_classified, only: [:show, :update, :destroy]
