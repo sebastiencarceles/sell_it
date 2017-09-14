@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pp'
 
 RSpec.describe 'Classifieds API', type: :request do
   let(:classified) { FactoryGirl.create :classified, user: current_user }
@@ -10,7 +9,8 @@ RSpec.describe 'Classifieds API', type: :request do
 
     context 'when everything goes well' do
       before {
-        FactoryGirl.create_list :classified, 18
+        FactoryGirl.create_list :classified, 5, category: 'vehicules'
+        FactoryGirl.create_list :classified, 15, category: 'accessories'
       }
 
       it 'works' do
@@ -26,6 +26,11 @@ RSpec.describe 'Classifieds API', type: :request do
       it 'returns paginated results when order is desc' do
         get "/v2/classifieds", params: { page: page, per_page: per_page, order: 'desc' }
         expect(parsed_body.map { |classified| classified['id'] }).to eq Classified.order(created_at: :desc).limit(per_page).offset((page - 1) * per_page).pluck(:id)
+      end
+
+      it 'returns categorized results when category parameter is given' do
+        get "/v2/classifieds", params: { page: 1, per_page: 5, order: 'asc', category: 'accessories' }
+        parsed_body.each { |classified| expect(classified['category']).to eq 'accessories' }
       end
     end
 
@@ -66,6 +71,7 @@ RSpec.describe 'Classifieds API', type: :request do
           title: classified.title,
           price: classified.price,
           description: classified.description,
+          category: classified.category,
           user: {
             id: classified.user.id,
             fullname: classified.user.fullname
