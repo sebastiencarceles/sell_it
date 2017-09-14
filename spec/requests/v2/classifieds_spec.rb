@@ -32,6 +32,14 @@ RSpec.describe 'Classifieds API', type: :request do
         get "/v2/classifieds", params: { page: 1, per_page: 5, order: 'asc', category: 'accessories' }
         parsed_body.each { |classified| expect(classified['category']).to eq 'accessories' }
       end
+
+      it 'returns the correct results when searching' do
+        classified_1 = FactoryGirl.create :classified, title: 'Gold jewels'
+        classified_2 = FactoryGirl.create :classified, title: 'Off road car'
+        classified_3 = FactoryGirl.create :classified, title: 'Great car, almost new'
+        get "/v2/classifieds", params: { page: 1, per_page: 5, order: 'asc', q: 'car' }
+        expect(parsed_body.map { |classified| classified['id'] }).to eq [classified_2.id, classified_3.id]
+      end
     end
 
     it 'returns a bad request when page parameter is missing' do
