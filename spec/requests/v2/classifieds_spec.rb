@@ -9,11 +9,13 @@ RSpec.describe 'Classifieds API', type: :request do
     let(:per_page) { 5 }
 
     context 'when everything goes well' do
-      before { FactoryGirl.create_list :classified, 18 }
+      before {
+        FactoryGirl.create_list :classified, 18
+      }
 
       it 'works' do
         get "/v2/classifieds", params: { page: page, per_page: per_page, order: 'asc' }
-        expect(response).to be_success
+        expect(response).to have_http_status :partial_content
       end
 
       it 'returns paginated results when order is asc' do
