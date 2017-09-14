@@ -14,7 +14,7 @@ RSpec.describe 'Classifieds API', type: :request do
         get "/v1/classifieds", params: { page: page, per_page: per_page }
       }
 
-      it { expect(response).to be_success }
+      it { expect(response).to have_http_status :partial_content }
 
       it 'returns paginated results' do
         expect(parsed_body.map { |classified| classified['id'] }).to eq Classified.all.limit(per_page).offset((page - 1) * per_page).pluck(:id)

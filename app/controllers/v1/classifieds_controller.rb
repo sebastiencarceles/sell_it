@@ -7,7 +7,7 @@ class V1::ClassifiedsController < ApplicationController
 
   def index
     render json: { error: 'missing parameters' }, status: :bad_request and return unless params[:page] && params[:per_page]
-    paginate json: Classified.all
+    paginate json: Classified.all, status: :partial_content
   end
 
   def show
