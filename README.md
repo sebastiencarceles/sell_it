@@ -1,6 +1,6 @@
 # README
 
-This is a simple example project, to illustrate the online course Build a _REST API with Ruby on Rails_ (in french: _API REST avec Ruby on Rails_).
+This is a simple example project, to illustrate the online course Build a _REST API with Ruby on Rails_ (currently available in french only: _API REST avec Ruby on Rails_ on Udemy).
 
 ## Ruby version
 
