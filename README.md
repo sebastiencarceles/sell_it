@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+This is a simple example project, to illustrate the french online course 'API REST avec Ruby on Rails'.
 
 * Ruby version
 
-* System dependencies
+2.4.0
 
 * Configuration
 
-* Database creation
+Perform a `bundle install` to install every needed gem.
 
-* Database initialization
+* Database
 
-* How to run the test suite
+Simple SQLite database, just `rails db:setup`.
 
-* Services (job queues, cache servers, search engines, etc.)
+* Run the test suite
 
-* Deployment instructions
-
-* ...
+Run `rspec`.
