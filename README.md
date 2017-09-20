@@ -2,18 +2,18 @@
 
 This is a simple example project, to illustrate the french online course 'API REST avec Ruby on Rails'.
 
-* Ruby version
+## Ruby version
 
 2.4.0
 
-* Configuration
+## Configuration
 
 Perform a `bundle install` to install every needed gem.
 
-* Database
+## Database
 
 Simple SQLite database, just `rails db:setup`.
 
-* Run the test suite
+## Run the test suite
 
 Run `rspec`.
