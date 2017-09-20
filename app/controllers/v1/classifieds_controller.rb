@@ -30,6 +30,11 @@ class V1::ClassifiedsController < ApplicationController
     render json: @classified.errors.details, status: :bad_request
   end
 
+  def publish
+    # Really publish the classified here
+    render json: { status: 'published' }, status: :created
+  end
+
   private
 
   def find_classified
