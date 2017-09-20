@@ -12,7 +12,7 @@ Perform a `bundle install` to install every needed gem.
 
 ## Database
 
-Simple SQLite database, just `rails db:setup`.
+Simple SQLite database, just run `rails db:setup`.
 
 ## Run the test suite
 
