@@ -53,11 +53,11 @@ RSpec.describe 'Classifieds API', type: :request do
       get '/v1/classifieds/toto'
       expect(response).to have_http_status :not_found
     end
+  end
 
-    context 'publications' do
-      before { post "/v1/classifieds/#{classified.id}/publications" }
-      it { expect(response).to have_http_status :created }
-    end
+  describe 'POST /classifieds/:id/publications' do
+    before { post "/v1/classifieds/#{classified.id}/publications" }
+    it { expect(response).to have_http_status :created }
   end
 
   describe 'POST /classifieds' do
