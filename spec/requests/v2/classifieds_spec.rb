@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Classifieds API', type: :request do
-  let(:classified) { FactoryGirl.create :classified, user: current_user }
+  let(:classified) { FactoryBot.create :classified, user: current_user }
 
   describe 'GET /classifieds' do
     let(:page) { 3 }
@@ -9,8 +9,8 @@ RSpec.describe 'Classifieds API', type: :request do
 
     context 'when everything goes well' do
       before {
-        FactoryGirl.create_list :classified, 5, category: 'vehicules'
-        FactoryGirl.create_list :classified, 15, category: 'accessories'
+        FactoryBot.create_list :classified, 5, category: 'vehicules'
+        FactoryBot.create_list :classified, 15, category: 'accessories'
       }
 
       it 'works' do
@@ -34,9 +34,9 @@ RSpec.describe 'Classifieds API', type: :request do
       end
 
       it 'returns the correct results when searching' do
-        classified_1 = FactoryGirl.create :classified, title: 'Gold jewels'
-        classified_2 = FactoryGirl.create :classified, title: 'Off road car'
-        classified_3 = FactoryGirl.create :classified, title: 'Great car, almost new'
+        classified_1 = FactoryBot.create :classified, title: 'Gold jewels'
+        classified_2 = FactoryBot.create :classified, title: 'Off road car'
+        classified_3 = FactoryBot.create :classified, title: 'Great car, almost new'
         get "/v2/classifieds", params: { page: 1, per_page: 5, order: 'asc', q: 'car' }
         expect(parsed_body.map { |classified| classified['id'] }).to eq [classified_2.id, classified_3.id]
       end
@@ -186,7 +186,7 @@ RSpec.describe 'Classifieds API', type: :request do
       end
 
       it 'returns a forbidden when the requester is not the owner of the resource' do
-        another_classified = FactoryGirl.create :classified
+        another_classified = FactoryBot.create :classified
         delete "/v2/classifieds/#{another_classified.id}", headers: authentication_header
         expect(response).to have_http_status :forbidden
       end

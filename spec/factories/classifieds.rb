@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :classified do
     user
     title Faker::Lorem.sentence

@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'pp'
 
 RSpec.describe 'Classifieds API', type: :request do
-  let(:classified) { FactoryGirl.create :classified, user: current_user }
+  let(:classified) { FactoryBot.create :classified, user: current_user }
 
   describe 'GET /classifieds' do
     context 'when everything goes well' do
@@ -10,7 +10,7 @@ RSpec.describe 'Classifieds API', type: :request do
       let(:per_page) { 5 }
 
       before {
-        FactoryGirl.create_list :classified, 18
+        FactoryBot.create_list :classified, 18
         get "/v1/classifieds", params: { page: page, per_page: per_page }
       }
 
@@ -145,7 +145,7 @@ RSpec.describe 'Classifieds API', type: :request do
       end
 
       it 'returns a forbidden when the requester is not the owner of the resource' do
-        another_classified = FactoryGirl.create :classified
+        another_classified = FactoryBot.create :classified
         patch "/v1/classifieds/#{another_classified.id}", params: params, headers: authentication_header
         expect(response).to have_http_status :forbidden
       end
@@ -177,7 +177,7 @@ RSpec.describe 'Classifieds API', type: :request do
       end
 
       it 'returns a forbidden when the requester is not the owner of the resource' do
-        another_classified = FactoryGirl.create :classified
+        another_classified = FactoryBot.create :classified
         delete "/v1/classifieds/#{another_classified.id}", headers: authentication_header
         expect(response).to have_http_status :forbidden
       end

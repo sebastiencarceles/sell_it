@@ -1,6 +1,6 @@
 module AuthenticationHelper
   def current_user
-    @user ||= FactoryGirl.create :user
+    @user ||= FactoryBot.create :user
   end
 
   def authentication_header
